@@ -2,14 +2,14 @@ class Validador {
   /** Valida o formato de um e-mail */
   validarEmail(email) {
     if (!email) return false;
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    return /^[^\s@]+@([^\s@.]+\.)+[^\s@.]+$/.test(email);
   }
 
   /** Valida a força de uma senha (mín. 8 caracteres, maiúscula, número e símbolo) */
   validarSenha(senha) {
     if (!senha || senha.length < 8) return false;
     const temMaiuscula = /[A-Z]/.test(senha);
-    const temNumero = /[0-9]/.test(senha);
+    const temNumero = /\d/.test(senha);
     const temSimbolo = /[^A-Za-z0-9]/.test(senha);
     return temMaiuscula && temNumero && temSimbolo;
   }
@@ -161,7 +161,7 @@ class Validador {
 
   /** Valida um nome de usuário (letras, números e underscore, 3 a 16 caracteres) */
   validarNomeUsuario(nomeUsuario) {
-    return /^[a-zA-Z0-9_]{3,16}$/.test(nomeUsuario || "");
+    return /^\w{3,16}$/.test(nomeUsuario || "");
   }
 
   /** Valida se um valor está entre as opções permitidas */
