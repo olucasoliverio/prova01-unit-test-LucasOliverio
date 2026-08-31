@@ -39,15 +39,19 @@ describe("validador", () => {
 
     // Act
     const cpfValido = validador.validarCPF("529.982.247-25");
+    const cpfComPrimeiroDigitoZero = validador.validarCPF("00000000604");
     const cpfComDigitosIguais = validador.validarCPF("111.111.111-11");
     const cpfComDigitoInvalido = validador.validarCPF("529.982.247-00");
     const cpfComTamanhoInvalido = validador.validarCPF("123");
+    const cpfNulo = validador.validarCPF(null);
 
     // Assert
     expect(cpfValido).toBe(true);
+    expect(cpfComPrimeiroDigitoZero).toBe(true);
     expect(cpfComDigitosIguais).toBe(false);
     expect(cpfComDigitoInvalido).toBe(false);
     expect(cpfComTamanhoInvalido).toBe(false);
+    expect(cpfNulo).toBe(false);
   });
 
   test("deve validar CNPJ verificando digitos verificadores", () => {
@@ -56,15 +60,19 @@ describe("validador", () => {
 
     // Act
     const cnpjValido = validador.validarCNPJ("11.222.333/0001-81");
+    const cnpjComPrimeiroDigitoZero = validador.validarCNPJ("00000000000604");
     const cnpjComDigitosIguais = validador.validarCNPJ("11.111.111/1111-11");
     const cnpjComDigitoInvalido = validador.validarCNPJ("11.222.333/0001-00");
     const cnpjComTamanhoInvalido = validador.validarCNPJ("123");
+    const cnpjNulo = validador.validarCNPJ(null);
 
     // Assert
     expect(cnpjValido).toBe(true);
+    expect(cnpjComPrimeiroDigitoZero).toBe(true);
     expect(cnpjComDigitosIguais).toBe(false);
     expect(cnpjComDigitoInvalido).toBe(false);
     expect(cnpjComTamanhoInvalido).toBe(false);
+    expect(cnpjNulo).toBe(false);
   });
 
   test("deve validar formato de CEP", () => {
@@ -216,11 +224,13 @@ describe("validador", () => {
     const placaAntiga = validador.validarPlacaVeiculo("ABC-1234");
     const placaMercosul = validador.validarPlacaVeiculo("ABC1D23");
     const placaInvalida = validador.validarPlacaVeiculo("1234ABC");
+    const placaNula = validador.validarPlacaVeiculo(null);
 
     // Assert
     expect(placaAntiga).toBe(true);
     expect(placaMercosul).toBe(true);
     expect(placaInvalida).toBe(false);
+    expect(placaNula).toBe(false);
   });
 
   test("deve validar um endereco IPv4", () => {
@@ -231,11 +241,13 @@ describe("validador", () => {
     const ipValido = validador.validarIP("192.168.0.1");
     const ipComOitetoInvalido = validador.validarIP("192.168.0.300");
     const ipComPoucasPartes = validador.validarIP("192.168.0");
+    const ipNulo = validador.validarIP(null);
 
     // Assert
     expect(ipValido).toBe(true);
     expect(ipComOitetoInvalido).toBe(false);
     expect(ipComPoucasPartes).toBe(false);
+    expect(ipNulo).toBe(false);
   });
 
   test("deve validar um codigo de cor hexadecimal", () => {
@@ -246,11 +258,13 @@ describe("validador", () => {
     const corCurta = validador.validarCorHex("#fff");
     const corCompleta = validador.validarCorHex("#a1b2c3");
     const corInvalida = validador.validarCorHex("a1b2c3");
+    const corNula = validador.validarCorHex(null);
 
     // Assert
     expect(corCurta).toBe(true);
     expect(corCompleta).toBe(true);
     expect(corInvalida).toBe(false);
+    expect(corNula).toBe(false);
   });
 
   test("deve validar se um numero esta dentro de um intervalo", () => {
@@ -293,11 +307,13 @@ describe("validador", () => {
     const nomeValido = validador.validarNomeUsuario("usuario_01");
     const nomeCurto = validador.validarNomeUsuario("ab");
     const nomeComCaracterInvalido = validador.validarNomeUsuario("usuario@01");
+    const nomeNulo = validador.validarNomeUsuario(null);
 
     // Assert
     expect(nomeValido).toBe(true);
     expect(nomeCurto).toBe(false);
     expect(nomeComCaracterInvalido).toBe(false);
+    expect(nomeNulo).toBe(false);
   });
 
   test("deve validar se um valor esta entre as opcoes permitidas", () => {
