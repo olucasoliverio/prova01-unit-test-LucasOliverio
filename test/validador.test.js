@@ -1,10 +1,13 @@
 const Validador = require("../src/validador");
 
 describe("validador", () => {
-  test("deve validar formato de e-mail", () => {
-    // Arrange
-    const validador = new Validador();
+  let validador;
 
+  beforeEach(() => {
+    validador = new Validador();
+  });
+
+  test("deve validar formato de e-mail", () => {
     // Act
     const emailValido = validador.validarEmail("usuario@dominio.com");
     const emailSemArroba = validador.validarEmail("usuariodominio.com");
@@ -17,9 +20,6 @@ describe("validador", () => {
   });
 
   test("deve validar forca de uma senha", () => {
-    // Arrange
-    const validador = new Validador();
-
     // Act
     const senhaForte = validador.validarSenha("Senha123!");
     const senhaCurta = validador.validarSenha("Ab1!");
@@ -34,11 +34,9 @@ describe("validador", () => {
   });
 
   test("deve validar CPF verificando digitos verificadores", () => {
-    // Arrange
-    const validador = new Validador();
-
     // Act
     const cpfValido = validador.validarCPF("529.982.247-25");
+    // CPF valido cujo primeiro digito verificador calculado da resto 10 (vira 0)
     const cpfComPrimeiroDigitoZero = validador.validarCPF("00000000604");
     const cpfComDigitosIguais = validador.validarCPF("111.111.111-11");
     const cpfComDigitoInvalido = validador.validarCPF("529.982.247-00");
@@ -55,11 +53,9 @@ describe("validador", () => {
   });
 
   test("deve validar CNPJ verificando digitos verificadores", () => {
-    // Arrange
-    const validador = new Validador();
-
     // Act
     const cnpjValido = validador.validarCNPJ("11.222.333/0001-81");
+    // CNPJ valido cujo primeiro digito verificador calculado da resto menor que 2 (vira 0)
     const cnpjComPrimeiroDigitoZero = validador.validarCNPJ("00000000000604");
     const cnpjComDigitosIguais = validador.validarCNPJ("11.111.111/1111-11");
     const cnpjComDigitoInvalido = validador.validarCNPJ("11.222.333/0001-00");
@@ -76,9 +72,6 @@ describe("validador", () => {
   });
 
   test("deve validar formato de CEP", () => {
-    // Arrange
-    const validador = new Validador();
-
     // Act
     const cepComTraco = validador.validarCEP("01310-100");
     const cepSemTraco = validador.validarCEP("01310100");
@@ -93,9 +86,6 @@ describe("validador", () => {
   });
 
   test("deve validar formato de telefone brasileiro", () => {
-    // Arrange
-    const validador = new Validador();
-
     // Act
     const telefoneComDDD = validador.validarTelefone("(11) 98765-4321");
     const telefoneFixo = validador.validarTelefone("(11) 3456-7890");
@@ -110,9 +100,6 @@ describe("validador", () => {
   });
 
   test("deve validar formato de uma URL", () => {
-    // Arrange
-    const validador = new Validador();
-
     // Act
     const urlValida = validador.validarURL("https://www.exemplo.com");
     const urlInvalida = validador.validarURL("nao-e-uma-url");
@@ -123,9 +110,6 @@ describe("validador", () => {
   });
 
   test("deve validar data no formato dd/mm/aaaa", () => {
-    // Arrange
-    const validador = new Validador();
-
     // Act
     const dataValida = validador.validarData("31/12/2023");
     const dataInexistente = validador.validarData("31/02/2023");
@@ -140,9 +124,6 @@ describe("validador", () => {
   });
 
   test("deve validar se uma idade atende a um minimo exigido", () => {
-    // Arrange
-    const validador = new Validador();
-
     // Act
     const idadeSuficiente = validador.validarIdadeMinima(18, 18);
     const idadeInsuficiente = validador.validarIdadeMinima(16, 18);
@@ -155,9 +136,6 @@ describe("validador", () => {
   });
 
   test("deve validar se um campo obrigatorio foi preenchido", () => {
-    // Arrange
-    const validador = new Validador();
-
     // Act
     const campoPreenchido = validador.validarCampoObrigatorio("Maria");
     const campoComEspacos = validador.validarCampoObrigatorio("   ");
@@ -172,9 +150,6 @@ describe("validador", () => {
   });
 
   test("deve validar se um texto atende a um tamanho minimo", () => {
-    // Arrange
-    const validador = new Validador();
-
     // Act
     const tamanhoSuficiente = validador.validarTamanhoMinimo("abcde", 3);
     const tamanhoInsuficiente = validador.validarTamanhoMinimo("ab", 3);
@@ -187,9 +162,6 @@ describe("validador", () => {
   });
 
   test("deve validar se um texto nao ultrapassa um tamanho maximo", () => {
-    // Arrange
-    const validador = new Validador();
-
     // Act
     const dentroDoLimite = validador.validarTamanhoMaximo("abc", 5);
     const acimaDoLimite = validador.validarTamanhoMaximo("abcdef", 5);
@@ -202,9 +174,6 @@ describe("validador", () => {
   });
 
   test("deve validar se um valor contem somente digitos numericos", () => {
-    // Arrange
-    const validador = new Validador();
-
     // Act
     const somenteNumeros = validador.validarSomenteNumeros("12345");
     const comLetras = validador.validarSomenteNumeros("123a5");
@@ -217,9 +186,6 @@ describe("validador", () => {
   });
 
   test("deve validar formato de placa de veiculo padrao antigo e mercosul", () => {
-    // Arrange
-    const validador = new Validador();
-
     // Act
     const placaAntiga = validador.validarPlacaVeiculo("ABC-1234");
     const placaMercosul = validador.validarPlacaVeiculo("ABC1D23");
@@ -234,9 +200,6 @@ describe("validador", () => {
   });
 
   test("deve validar um endereco IPv4", () => {
-    // Arrange
-    const validador = new Validador();
-
     // Act
     const ipValido = validador.validarIP("192.168.0.1");
     const ipComOitetoInvalido = validador.validarIP("192.168.0.300");
@@ -251,9 +214,6 @@ describe("validador", () => {
   });
 
   test("deve validar um codigo de cor hexadecimal", () => {
-    // Arrange
-    const validador = new Validador();
-
     // Act
     const corCurta = validador.validarCorHex("#fff");
     const corCompleta = validador.validarCorHex("#a1b2c3");
@@ -268,9 +228,6 @@ describe("validador", () => {
   });
 
   test("deve validar se um numero esta dentro de um intervalo", () => {
-    // Arrange
-    const validador = new Validador();
-
     // Act
     const dentroDoIntervalo = validador.validarIntervalo(5, 1, 10);
     const noLimiteInferior = validador.validarIntervalo(1, 1, 10);
@@ -285,9 +242,6 @@ describe("validador", () => {
   });
 
   test("deve validar se duas senhas informadas coincidem", () => {
-    // Arrange
-    const validador = new Validador();
-
     // Act
     const senhasIguais = validador.validarConfirmacaoSenha("Senha123!", "Senha123!");
     const senhasDiferentes = validador.validarConfirmacaoSenha("Senha123!", "Outra123!");
@@ -300,9 +254,6 @@ describe("validador", () => {
   });
 
   test("deve validar um nome de usuario", () => {
-    // Arrange
-    const validador = new Validador();
-
     // Act
     const nomeValido = validador.validarNomeUsuario("usuario_01");
     const nomeCurto = validador.validarNomeUsuario("ab");
